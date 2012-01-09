@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonDotNetValueProviderTestHarness", "JsonDotNetValueProviderFactory\JsonDotNetValueProviderTestHarness.csproj", "{8F70F868-6FD0-47DB-B897-0A00E77E1BBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonDotNetValueProviderFactoryTests", "JsonDotNetValueProviderFactoryTests\JsonDotNetValueProviderFactoryTests.csproj", "{5435F96F-0BB7-4B31-BEBA-58467208AA62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8F70F868-6FD0-47DB-B897-0A00E77E1BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F70F868-6FD0-47DB-B897-0A00E77E1BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F70F868-6FD0-47DB-B897-0A00E77E1BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F70F868-6FD0-47DB-B897-0A00E77E1BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5435F96F-0BB7-4B31-BEBA-58467208AA62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5435F96F-0BB7-4B31-BEBA-58467208AA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5435F96F-0BB7-4B31-BEBA-58467208AA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5435F96F-0BB7-4B31-BEBA-58467208AA62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

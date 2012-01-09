@@ -1,0 +1,164 @@
+﻿@using JsonDotNetValueProviderFactoryTestHarness.Models
+@model TestJsonDotNetValueProviderFactoryModel
+<p>
+    DalSoft's blog on JsonDotNetValueProviderFactory
+</p>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#testjsonvalueproviderfactoryform').submit(function () {
+            $('#ValueProviderFactory').val() == 'TestJsonDotNetValueProviderFactoryController' ? $(this).attr('action', '/TestJsonDotNetValueProviderFactory') : $(this).attr('action', '/TestJsonValueProviderFactory');
+            $('#perform-test').hide();
+            $('fieldset').hide('slow');
+
+            var data = $(this).serializeObject();
+            if ($('#test-dynamicproperty').attr('checked')) //Post Dynamic too
+                data.DynamicProperty = $(this).serializeObject();
+
+            $.ajax({
+                url: $('#testjsonvalueproviderfactoryform').attr('action'),
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    testJson($('#test-dynamicproperty').attr('checked') ? data.DynamicProperty : data); //Test Dynamic
+                }
+            });
+            return false;
+        });
+
+        $('#reset').click(function () {
+            $('#perform-test').show();
+            $('#results').empty();
+            $('fieldset').show('slow');
+            return false;
+        });
+
+        $.fn.serializeObject = function () {
+            var json = {};
+
+            $(this).find("input").each(function () {
+                var name = $(this).attr('name');
+                if ($(this).attr("type") == "text")
+                    json[name] = $(this).val();
+                else if ($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") {
+                    json[name] = $(this).attr("checked");
+                }
+            });
+
+            return json;
+        };
+
+        function testJson(data) {
+            var increment = 200;
+            var index = 0;
+            $('#testjsonvalueproviderfactoryform li input').each(function () {
+                var name = $(this).attr('name');
+                var selector = '#' + name;
+                var value = null;
+
+                if ((typeof data[name] != "function") && (typeof data[name] != "object") && ($(this).attr("type") == "text" || $(this).attr("type") == "checkbox")) {
+                    if (name == "DateTimeProperty") {
+                        var date1 = $(selector).val().split('/'), date2 = data[name] ? data[name].split('/') : "";
+                        value = (new Date(date1[0], date1[1], date1[2]).toUTCString() == new Date(date2[0], date2[1], date2[2]).toUTCString());
+                    }
+                    else if (name == "BoolProperty") 
+                        value = (data[name] == undefined) ? false : (String($(selector).attr('checked')) == String(data[name]));
+                    else if (typeof data[name] == "string")
+                        value = (String($(selector).val()) == String(data[name]));
+                    else if (typeof data[name] == "number")
+                        value = (Number($(selector).val()) == Number(data[name]));
+
+                    var style = value ? 'green;' : 'red;font-weight:bold;';
+                    setTimeout(function () {
+                        $('#results').append(($('<div />', { text: name + ': ', id: 'result_' + name })));
+                    }, (index * increment));
+
+                    setTimeout(function () {
+                        $('#result_' + name).append(($('<span />', { text: (value ? 'OK' : 'FAIL'), style: 'color:' + style })));
+                    }, (index * increment) + increment);
+
+                    index++;
+                }
+            });
+        }
+    });
+</script>
+
+
+@using (Html.BeginForm("Index", "TestJsonDotNetValueProviderFactoryController", FormMethod.Post, new { id = "testjsonvalueproviderfactoryform" }))
+{
+   
+    <fieldset id="test-values">
+        <legend>Test Values</legend>
+        <p>
+            <select name="ValueProviderFactory" id="ValueProviderFactory">
+                <option value="TestJsonDotNetValueProviderFactoryController">Test JsonDotNetValueProviderFactoryController (DalSoft's example)</option>
+                <option value="TestJsonValueProviderFactoryController">Test JsonValueProviderFactoryController (current MVC 3)</option>
+            </select>
+        </p>
+        <p>
+            <label for="test-dynamicproperty">Test posting to dynamic model properties</label>
+            <input type="radio" name="test-dynamicproperty" id="test-dynamicproperty" checked="checked" />
+            <label for="test-staticproperty">Test posting to static model properties</label>
+            <input type="radio" name="test-dynamicproperty" id="test-staticproperty" />
+        </p>
+        <ul>
+            <li>
+                @Html.LabelFor(x => x.BoolProperty)
+                @Html.EditorFor(x => x.BoolProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.CharProperty)
+                @Html.EditorFor(x => x.CharProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.DateTimeProperty)
+                @Html.EditorFor(x => x.DateTimeProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.DecimalProperty)
+                @Html.EditorFor(x => x.DecimalProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.FloatProperty)
+                @Html.EditorFor(x => x.FloatProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.IntProperty)
+                @Html.EditorFor(x => x.IntProperty)
+             </li>
+            <li>
+                @Html.LabelFor(x => x.LongProperty)
+                @Html.EditorFor(x => x.LongProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.ShortProperty)
+                @Html.EditorFor(x => x.ShortProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.StringProperty)
+                @Html.EditorFor(x => x.StringProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.UintProperty)
+                @Html.EditorFor(x => x.UintProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.UlongProperty)
+                @Html.EditorFor(x => x.UlongProperty)
+            </li>
+            <li>
+                @Html.LabelFor(x => x.UshortProperty)
+                @Html.EditorFor(x => x.UshortProperty)
+            </li>
+        </ul>
+    </fieldset>
+    
+    <input type="submit" value="Perform Test" id="perform-test"/>                                       
+    <input type="button" value="Start Again" id="reset" /> 
+}
+
+<div id="results"></div>
