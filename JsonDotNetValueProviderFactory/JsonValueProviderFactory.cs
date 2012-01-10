@@ -1,12 +1,10 @@
-﻿using System;
-using System.Dynamic;
+﻿using System.Dynamic;
 using System.Globalization;
 using System.IO;
-using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace JsonDotNetValueProviderFactoryTestHarness
+namespace System.Web.Mvc
 {
     public sealed class JsonDotNetValueProviderFactory : ValueProviderFactory
     {
