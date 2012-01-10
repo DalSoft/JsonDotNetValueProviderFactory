@@ -19,7 +19,7 @@ namespace JsonDotNetValueProviderFactoryTests
         private ControllerContext _controllerContext;
 
         [SetUp]
-        public void TestFixtureSetUp()
+        public void SetUp()
         {
             _httpContextBaseFake = new Mock<HttpContextBase>();
             _requestFake = new Mock<HttpRequestBase>();
@@ -80,7 +80,7 @@ namespace JsonDotNetValueProviderFactoryTests
                 
                 var jsonDotNetValueProvider = new JsonDotNetValueProviderFactory().GetValueProvider(_controllerContext);
                 Assert.IsInstanceOf<DictionaryValueProvider<object>>(jsonDotNetValueProvider);
-                dynamic nestedValue = (ExpandoObject)jsonDotNetValueProvider.GetValue("nestedValue").RawValue;
+                dynamic nestedValue = jsonDotNetValueProvider.GetValue("nestedValue").RawValue;
                 Assert.AreEqual(nestedValue.nestedValue1, "MyString2");
                 Assert.AreEqual(nestedValue.nestedValue2, 200);
             }
