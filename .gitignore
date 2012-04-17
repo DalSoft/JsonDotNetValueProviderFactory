@@ -4,6 +4,7 @@
 *.suo
 Publish.xml
 App_Data
+packages
 
 # merge
 *.orig
@@ -17,6 +18,7 @@ _ReSharper.*
 *.ReSharper
 *.user
 
-
-# dotCover
+# DotCover
 *.dotCover
+
+
